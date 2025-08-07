@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Attendance System</span>
+            </div>
+        </div>
+        
+        <div class="sidebar-section">
+            <h4>Navigation</h4>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-section="events">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Events</span>
+                </a>
+                <a href="#" class="nav-item" data-section="add-student">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Add Students</span>
+                </a>
+                <a href="#" class="nav-item" data-section="attendance-list">
+                    <i class="fas fa-list-alt"></i>
+                    <span>Attendance List</span>
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="main-header">
+            <div class="header-content">
+                <div class="breadcrumb">
+                    <i class="fas fa-bars sidebar-toggle" id="sidebarToggle"></i>
+                    <h1 id="pageTitle">Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <div class="current-time" id="currentTime">
+                        <i class="fas fa-clock"></i>
+                        <span id="timeDisplay">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Sections -->
+        <div class="content-wrapper">
+            <!-- Dashboard Section -->
+            <div class="section active" id="dashboard">
+                <!-- Active Events -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-calendar-check"></i>
+                        <h3>Today's Events</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="events-grid" id="todayEventsGrid">
+                            <p class="no-data">No events scheduled for today.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Events -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-history"></i>
+                        <h3>Recent Events</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="events-list" id="recentEventsList">
+                            <p class="no-data">No recent events found.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Events Section -->
+            <div class="section" id="events">
+                <!-- Create Event -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-plus-circle"></i>
+                        <h3>Create New Event</h3>
+                    </div>
+                    <div class="card-content">
+                        <form id="createEventForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="newEventTitle">Event Title</label>
+                                    <input type="text" id="newEventTitle" required placeholder="Enter event title">
+                                </div>
+                                <div class="form-group">
+                                    <label for="newEventDate">Event Date</label>
+                                    <input type="date" id="newEventDate" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventDescription">Description (Optional)</label>
+                                <textarea id="eventDescription" placeholder="Enter event description" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-plus"></i>
+                                Create Event
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- All Events -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-calendar"></i>
+                        <h3>All Events</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="events-table-container">
+                            <table class="events-table">
+                                <thead>
+                                    <tr>
+                                        <th>Event Title</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Attendees</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="eventsTableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event Attendance Section -->
+            <div class="section" id="event-attendance">
+                <div class="event-header" id="eventHeader">
+                    <button class="btn btn-secondary" onclick="goBackToDashboard()">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Dashboard
+                    </button>
+                    <div class="event-info">
+                        <h2 id="currentEventTitle">Event Title</h2>
+                        <p id="currentEventDate">Event Date</p>
+                    </div>
+                </div>
+
+                <!-- Student Login Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-user"></i>
+                        <h3>Student Login</h3>
+                    </div>
+                    <div class="card-content">
+                        <!-- Session Toggle -->
+                        <div class="session-toggle">
+                            <button class="session-btn active" data-session="morning" onclick="setSession('morning')">
+                                Morning Session
+                            </button>
+                            <button class="session-btn" data-session="afternoon" onclick="setSession('afternoon')">
+                                Afternoon Session
+                            </button>
+                        </div>
+
+                        <!-- Student Name Input -->
+                        <div class="student-input-section">
+                            <div class="form-group">
+                                <label for="studentName">Student Name</label>
+                                <div class="input-with-button">
+                                    <div class="search-input-container">
+                                        <input type="text" id="studentName" placeholder="Enter student name">
+                                        <div class="student-suggestions" id="studentSuggestions"></div>
+                                    </div>
+                                    <button class="btn btn-dark" onclick="loginStudent()">Login</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Attendance Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-users"></i>
+                        <h3><span id="currentSessionTitle">Morning</span> Session Attendance</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="table-container">
+                            <table class="attendance-table">
+                                <thead>
+                                    <tr>
+                                        <th>Full Name</th>
+                                        <th>Strand/Course</th>
+                                        <th>Grade/Year</th>
+                                        <th>Login Time</th>
+                                        <th>Logout Time</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="attendanceTableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Student Section -->
+            <div class="section" id="add-student">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-user-edit"></i>
+                        <h3>Student Information</h3>
+                    </div>
+                    <div class="card-content">
+                        <form id="addStudentForm">
+                            <div class="form-group">
+                                <label for="fullName">Full Name</label>
+                                <input type="text" id="fullName" required placeholder="Enter full name">
+                            </div>
+                            <div class="form-group">
+                                <label for="strand">Strand/Course</label>
+                                <input type="text" id="strand" required placeholder="Enter strand or course">
+                            </div>
+                            <div class="form-group">
+                                <label for="grade">Grade/Year</label>
+                                <input type="text" id="grade" required placeholder="Enter grade or year">
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-plus"></i>
+                                Add Student
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Students List -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-users"></i>
+                        <h3>Registered Students</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="students-grid" id="studentsGrid">
+                            <p class="no-data">No students registered yet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Attendance List Section -->
+            <div class="section" id="attendance-list">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-history"></i>
+                        <h3>Attendance History</h3>
+                    </div>
+                    <div class="card-content">
+                        <div id="attendanceHistory">
+                            <p class="no-data">No attendance records found.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="firebase-config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
