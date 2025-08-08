@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ICT CLUB - Attendance System</title>
+    <title>Student Attendance System</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="ict-club.ico" type="image/x-icon" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <div class="logo">
-                <i class="fas fa-graduation-cap"></i>
-                <span>ICT CLUB</span>
+                <img src="ict-club-logo2.png" alt="Attendance Logo" class="sidebar-logo">
+                <span>Attendance System</span>
             </div>
+
         </div>
-        
+
         <div class="sidebar-section">
             <h4>Navigation</h4>
             <nav class="sidebar-nav">
@@ -112,7 +115,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="eventDescription">Description (Optional)</label>
-                                <textarea id="eventDescription" placeholder="Enter event description" rows="3"></textarea>
+                                <textarea id="eventDescription" placeholder="Enter event description"
+                                    rows="3"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-plus"></i>
@@ -285,9 +289,10 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
-    
+
     <!-- Custom JavaScript -->
     <script src="firebase-config.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>

@@ -29,6 +29,13 @@ body {
     overflow-y: auto;
 }
 
+.sidebar-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-right: 6px;
+}
+
 .sidebar-header {
     padding: 24px 20px;
     border-bottom: 1px solid #e5e7eb;
@@ -41,6 +48,7 @@ body {
     font-size: 18px;
     font-weight: 600;
     color: #1a1a1a;
+    padding: 10px;
 }
 
 .logo i {
